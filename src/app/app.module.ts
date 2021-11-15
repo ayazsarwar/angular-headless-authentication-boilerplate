@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,7 +11,8 @@ import { LoginComponent } from './pages/login/login.component';
   declarations: [
     AppComponent,
 
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent
   ],
 
   imports: [
