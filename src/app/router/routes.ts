@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AuthGuard } from '../guards/auth.guard';
 import { GuestGuard } from '../guards/guest.guard';
+import { ResetPasswordGuard } from '../guards/reset-password.guard';
 
 import { LoginComponent } from './../pages/login/login.component';
 import { ForgotPasswordComponent } from './../pages/forgot-password/forgot-password.component';
@@ -23,7 +24,7 @@ export const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
-    canActivate: [GuestGuard],
+    canActivate: [GuestGuard, ResetPasswordGuard],
   },
   {
     path: '',
@@ -31,4 +32,3 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 ];
-
