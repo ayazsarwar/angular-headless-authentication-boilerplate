@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 
+import { AuthGuard } from '../guards/auth.guard';
+import { GuestGuard } from '../guards/guest.guard';
+
 import { LoginComponent } from './../pages/login/login.component';
 import { ForgotPasswordComponent } from './../pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from '../pages/reset-password/reset-password.component';
+
 import { DashboardComponent } from './../pages/dashboard/dashboard.component';
-import { GuestGuard } from '../guards/guest.guard';
-import { AuthGuard } from '../guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,3 +31,4 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 ];
+
