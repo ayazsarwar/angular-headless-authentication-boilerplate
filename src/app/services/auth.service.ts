@@ -46,7 +46,7 @@ export class AuthService {
   }): Observable<any> {
     // Mock login
     return this.http
-      .post(api.logout, {
+      .post(api.login, {
         username: email,
         password: password,
       })
