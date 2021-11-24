@@ -1,5 +1,7 @@
+import { APIInterceptor } from './interceptors/api.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './router/app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,12 +26,17 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
   ],
 
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: APIInterceptor,
+    multi: true,
+  }],
 
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,5 @@
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,31 +9,73 @@ import { Router } from '@angular/router';
 export class AuthService {
   loggedIn$ = new BehaviorSubject(false);
   user$: BehaviorSubject<any> = new BehaviorSubject(null);
+  token$: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: HttpClient) {
     this.loggedIn$.subscribe();
     this.user$.subscribe();
+
+    const token: any = localStorage.getItem('access_token');
+    if (token) {
+      this.loggedIn$.next(true);
+      this.token$.next(token);
+      this.getUser().subscribe({
+        next: (res) => {
+          this.user$.next(res);
+          this.router.navigate(['/'], { replaceUrl: true });
+        },
+        error: () => {
+          this.logout();
+        },
+      });
+    } else {
+      this.loggedIn$.next(false);
+      this.token$.next(null);
+      this.user$.next(null);
+    }
   }
 
   // To be updated
-  login({ email, password }: { email: string; password: string }) {
+  login({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Observable<any> {
     // Mock login
-    this.loggedIn$.next(true);
-    this.user$.next({
-      id: 1,
-      email: 'asd@asd.com',
-      first_name: 'Test',
-      last_name: 'User',
-      roles: [],
-    });
-    this.router.navigate(['/'], { replaceUrl: true });
+    return this.http
+      .post('login', {
+        username: email,
+        password: password,
+      })
+      .pipe(
+        map((res: any) => {
+          let { token, ...user } = res;
+          return { token, user };
+        })
+      );
+  }
+
+  getUser() {
+    return this.http.get('profile').pipe(
+      map((res: any) => {
+        return res.data;
+      })
+    );
   }
 
   // To be updated
   logout() {
     // Mock logout
-    this.loggedIn$.next(false);
-    this.user$.next(null);
-    this.router.navigate(['/login'], { replaceUrl: true });
+    return this.http.post('logout', {}).subscribe({
+      next: () => {
+        this.loggedIn$.next(false);
+        this.user$.next(null);
+        localStorage.removeItem('access_token');
+        this.token$.next(null);
+        this.router.navigate(['/login'], { replaceUrl: true });
+      },
+    });
   }
 }
