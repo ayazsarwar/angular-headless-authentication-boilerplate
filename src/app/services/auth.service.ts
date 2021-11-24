@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { api } from '../api.endpoints';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +46,7 @@ export class AuthService {
   }): Observable<any> {
     // Mock login
     return this.http
-      .post('login', {
+      .post(api.logout, {
         username: email,
         password: password,
       })
@@ -58,7 +59,7 @@ export class AuthService {
   }
 
   getUser() {
-    return this.http.get('profile').pipe(
+    return this.http.get(api.getLoggedInUser).pipe(
       map((res: any) => {
         return res.data;
       })
@@ -68,7 +69,7 @@ export class AuthService {
   // To be updated
   logout() {
     // Mock logout
-    return this.http.post('logout', {}).subscribe({
+    return this.http.post(api.logout, {}).subscribe({
       next: () => {
         this.loggedIn$.next(false);
         this.user$.next(null);
