@@ -1,15 +1,23 @@
-<p>login works!</p>
-<form [formGroup]="form" (ngSubmit)="attempt()">
-  <div>
-    <input
-      type="email"
-      formControlName="email"
-      placeholder="email@example.com"
-    />
-  </div>
-  <div>
-    <input type="password" formControlName="password" placeholder="password" />
-  </div>
-  <button type="submit">login</button>
-  <button type="button" (click)="router.navigate(['/forgot-password'])">forgot password</button>
-</form>
+<app-auth-layout>
+  <p>login works!</p>
+  <form [formGroup]="form" (ngSubmit)="attempt()">
+    <div>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="email@example.com"
+      />
+    </div>
+    <div>
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="password"
+      />
+    </div>
+    <button type="submit">login</button>
+    <button type="button" (click)="router.navigate(['/forgot-password'])">
+      forgot password
+    </button>
+  </form>
+</app-auth-layout>
