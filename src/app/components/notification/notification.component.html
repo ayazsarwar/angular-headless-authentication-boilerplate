@@ -1,0 +1,14 @@
+<ng-container *ngFor="let notification of ns.pendingNotifications">
+  <div
+    (click)="ns.pop(notification.id)"
+    style="
+      padding: 8px;
+      border-radius: 8px;
+      background-color: royalblue;
+      color: white;
+      margin: 4px;
+    "
+  >
+    {{ notification | json }}
+  </div>
+</ng-container>

@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthLayoutComponent } from './components/auth-layout/auth-layout.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthLayoutComponent } from './components/auth-layout/auth-layout.compon
     ResetPasswordComponent,
 
     DashboardComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    NotificationComponent
   ],
 
   imports: [
