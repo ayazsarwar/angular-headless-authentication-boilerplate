@@ -1,13 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>BaseApp</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>BaseApp</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body style="margin: 0px;">
+    <div id="loader" style="padding:0px">
+      <style>
+        .application-loading-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: royalblue;
+          color:white;
+        }
+
+        .application-loading-box {
+          width: 300px;
+          text-align: center;
+        }
+      </style>
+      <div class="application-loading-container">
+        <div class="application-loading-box"><h2>Loading...</h2></div>
+      </div>
+    </div>
+    <app-root></app-root>
+  </body>
 </html>
