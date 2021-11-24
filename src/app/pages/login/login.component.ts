@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(
+    public auth: AuthService,
+    public router: Router,
+    private notification: NotificationService
+  ) {}
 
   attempt() {
     this.auth
@@ -31,11 +36,21 @@ export class LoginComponent {
             next: (user) => {
               this.auth.user$.next(user);
               this.router.navigate(['/'], { replaceUrl: true });
+              this.notification.push({
+                autoClose: false,
+                msg: 'Logged In successfully',
+              });
             },
-            error: (e) => console.error(e),
+            error: (e) => {
+              console.error(e);
+              // this.notification.push(e.toString());
+            },
           });
         },
-        error: (e) => console.error(e),
+        error: (e) => {
+          console.error(e);
+          // this.notification.push(e.toString());
+        },
       });
   }
 }

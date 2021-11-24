@@ -3,6 +3,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { api } from '../api.endpoints';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   user$: BehaviorSubject<any> = new BehaviorSubject(null);
   token$: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private notification:NotificationService) {
     this.loggedIn$.subscribe();
     this.user$.subscribe();
 
@@ -76,6 +77,7 @@ export class AuthService {
         localStorage.removeItem('access_token');
         this.token$.next(null);
         this.router.navigate(['/login'], { replaceUrl: true });
+        this.notification.push({msg:'Logged Out successfully'})
       },
     });
   }
